@@ -17,7 +17,7 @@ public class ChatbotApplication {
 
 		try {
 			// Se registra el bot
-			telegramBotsApi.registerBot(new EchoBot());
+			telegramBotsApi.registerBot(new PumaBot());
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}

@@ -2,14 +2,18 @@ package com.pumachat.chatbot;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-
+import java.util.ArrayList;
+import java.util.List;
 public class PumaBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(final Update update) {
-        // Esta función se invocará cuando nuestro bot reciba un mensaje
+
+
 
         // Se obtiene el mensaje escrito por el usuario
         final String messageTextReceived = update.getMessage().getText();
@@ -26,15 +30,50 @@ public class PumaBot extends TelegramLongPollingBot {
 
 
         // Se crea un objeto mensaje
-        SendMessage message = new SendMessage().setChatId(chatId).setText("Aqui deberia repetirte el mensaje pero guix lo cambio");
+      /*  SendMessage message = new SendMessage().setChatId(chatId).setText("Aqui deberia repetirte el mensaje pero guix lo cambio");
 
         try {
             // Se envía el mensaje
             execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }*/
+
+        if (messageTextReceived.equals("/teclado")) {
+            SendMessage message = new SendMessage()
+                    .setChatId(chatId)
+                    .setText("Aqui esta el teclado");
+            ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+            List<KeyboardRow> keyboard = new ArrayList<>();
+            KeyboardRow row = new KeyboardRow();
+            row.add("Opcion 1");
+            row.add("Opcion  2");
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("Opcion 3");
+            row.add("Opcion 4");
+            keyboard.add(row);
+            keyboardMarkup.setKeyboard(keyboard);
+
+            message.setReplyMarkup(keyboardMarkup);
+            try {
+                sendMessage(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        } else if (messageTextReceived.equals("Opcion 1")) {
+            SendMessage message = new SendMessage()
+                    .setChatId(chatId)
+                    .setText("A elegido la opcion 1");
+            try {
+                sendMessage(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
-    }
+        }
+
+
 //llamar sendPDF.java
     private String sendRoutes(String ruta) {
         SendPDF r = new SendPDF();

@@ -27,6 +27,10 @@ public class PumaBot extends TelegramLongPollingBot {
             SendMessage rutas = new SendMessage().setChatId(chatId).setText(sendRoutes(ruta));
         }
 
+        if (messageTextReceived == "Noticias"){
+            SendMessage message = new SendMessage().setChatId(chatId).setText("Visite la pagina siguiente para ver noticias: ");
+        }
+
 
 
         // Se crea un objeto mensaje

@@ -1,11 +1,13 @@
 package com.ChiquiBot.core;
 
 public class From {
+
     private int id;
     private boolean is_bot;
     private String first_name;
     private String last_name;
     private String language_code;
+
 
     public int getId() {
         return id;

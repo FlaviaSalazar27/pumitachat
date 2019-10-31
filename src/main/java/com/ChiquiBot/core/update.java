@@ -2,7 +2,7 @@ package com.ChiquiBot.core;
 
 
 
-public class update {
+public class Update {
     private int update_id;
     private Message message;
 

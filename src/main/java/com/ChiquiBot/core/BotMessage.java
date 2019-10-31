@@ -1,6 +1,9 @@
 package com.ChiquiBot.core;
 
+import com.ChiquiBot.net.HttpClient;
+
 public class BotMessage {
+   // private static final String TELEGRAM_RESOURCE="";
     private final int chat_id;
     private final String text;
 
@@ -17,4 +20,7 @@ public class BotMessage {
         return text;
     }
 
+   /* public void send (){
+        HttpClient.POST(TELEGRAM_RESOURCE + "/sendMessage", this );
+    }*/
 }

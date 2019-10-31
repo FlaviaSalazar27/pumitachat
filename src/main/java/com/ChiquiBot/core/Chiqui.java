@@ -27,7 +27,6 @@ public class Chiqui extends TelegramLongPollingBot {
         }
     }
 
-
     @Override
     public String getBotUsername() {
         // Se devuelve el nombre que dimos al bot al crearlo con el BotFather

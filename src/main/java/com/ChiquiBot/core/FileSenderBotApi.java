@@ -1,5 +1,6 @@
 package com.ChiquiBot.core;
 
+import org.telegram.telegrambots.generics.UpdatesHandler;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.generics.UpdatesHandler;
 

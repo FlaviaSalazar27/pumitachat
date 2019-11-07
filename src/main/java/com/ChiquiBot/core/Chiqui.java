@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class Chiqui extends TelegramLongPollingBot {
+public class Chiqui extends TelegramLongPollingBot implements Chiqui22 {
 
     @Override
     public void onUpdateReceived(final Update update) {
@@ -30,6 +30,11 @@ public class Chiqui extends TelegramLongPollingBot {
         }
     }
 
+
+    @Override
+    public void onUpdateReceived(org.telegram.telegrambots.api.objects.Update update) {
+
+    }
 
     @Override
     public String getBotUsername() {

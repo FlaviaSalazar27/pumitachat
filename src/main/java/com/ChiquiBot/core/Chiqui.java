@@ -1,34 +1,51 @@
 package com.ChiquiBot.core;
+import com.ChiquiBot.files.CommandManager;
+import com.ChiquiBot.files.PhotoIdentifier;
 import org.slf4j.ILoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Document;
 import org.telegram.telegrambots.meta.api.objects.File;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-<<<<<<< HEAD
+import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Chiqui extends TelegramLongPollingBot {
-=======
-public class Chiqui extends TelegramLongPollingBot implements Chiqui22 {
->>>>>>> 50a25c249ef48ad6f14b23eacf53abf10c2973bc
 
     @Override
     public void onUpdateReceived(final Update update) {
+
         // Esta función se invocará cuando nuestro bot reciba un mensaje
        /* File doc = new File();
         */
+       CommandManager comand = new CommandManager();
         final String messageTextReceived = update.getMessage().getText();
 
         // Se obtiene el id de chat del usuario
         final long chatId = update.getMessage().getChatId();
         final String nombre = update.getMessage().getFrom().getFirstName();
-        String mensaje ="http://amn.bo/wp-content/uploads/2019/08/69112080_1638670066269349_8967221364142374912_n.jpg";
-        
-        SendDocument message = new SendDocument().setChatId(chatId).setDocument("http://www.lapazbus.bo/fileman/Uploads/files/pdf/mapa_rutachasquipampa.pdf");
+        String mensaje = comand.manageImage(messageTextReceived);
+
+        SendDocument message = new SendDocument().setChatId(chatId).setDocument(mensaje);
+
+        //Codigo para saber el File ID de una imagen, se debe poner como comentario cuando no sea necesario
+        if (update.hasMessage() && update.getMessage().hasPhoto()) {
+            PhotoIdentifier img = new PhotoIdentifier();
+            SendPhoto msg = img.getImageDetails(update.getMessage().getPhoto(),chatId);
+
+            try {
+                execute(msg); // Call method to send the photo with caption
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         try {
             // Se envía el mensaje
@@ -38,11 +55,6 @@ public class Chiqui extends TelegramLongPollingBot implements Chiqui22 {
         }
     }
 
-
-    @Override
-    public void onUpdateReceived(org.telegram.telegrambots.api.objects.Update update) {
-
-    }
 
     @Override
     public String getBotUsername() {

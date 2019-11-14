@@ -43,16 +43,16 @@ public class CommandManager {
             // Create a keyboard row
             KeyboardRow row = new KeyboardRow();
             // Set each button, you can also use KeyboardButton objects if you need something else than text
-            row.add("Ruta Chasquipampa");
-            row.add("Ruta Achumani");
+            row.add("\uD83D\uDE8C Ruta Chasquipampa");
+            row.add(" \uD83D\uDE8C Ruta Achumani");
 
             // Add the first row to the keyboard
             keyboard.add(row);
             // Create another keyboard row
             row = new KeyboardRow();
             // Set each button for the second line
-            row.add("Tarifario");
-            row.add("Horarios");
+            row.add("\uD83D\uDCB0 Tarifario");
+            row.add(" ⏰ Horarios");
 
             // Add the second row to the keyboard
             keyboard.add(row);

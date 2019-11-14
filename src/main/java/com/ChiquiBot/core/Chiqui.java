@@ -26,13 +26,12 @@ public class Chiqui extends TelegramLongPollingBot {
         */
        CommandManager comand = new CommandManager();
         final String messageTextReceived = update.getMessage().getText();
-
         // Se obtiene el id de chat del usuario
         final long chatId = update.getMessage().getChatId();
         final String nombre = update.getMessage().getFrom().getFirstName();
         String mensaje = comand.manageImage(messageTextReceived);
 
-        SendDocument message = new SendDocument().setChatId(chatId).setDocument(mensaje);
+
         if (messageTextReceived.equals("/menu")){
 
             CommandManager commandManager = new CommandManager();
@@ -44,20 +43,36 @@ public class Chiqui extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
         }
+        SendPhoto msg = new SendPhoto()
+                .setChatId(chatId);
+
+        switch (messageTextReceived){
+            case "\uD83D\uDE8C Ruta Chasquipampa":
+                msg.setPhoto("AgADAQADpagxG3eDcEazYQczT2q0cn3hawYABAEAAwIAA3kAA2dpAQABFgQ").setCaption("Photo");
+                break;
+            case "\uD83D\uDE8C Ruta Achumani":
+                msg.setPhoto("AgADAQADpqgxG3eDcEZP7u1IjS035Rj0awYABAEAAwIAA3kAAxZlAQABFgQ").setCaption("Photo");
+                break;
+            case "\uD83D\uDCB0 Tarifario":
+                msg.setPhoto("AgADAQADO6gxG5vtaEb43oGeNJVevrbsawYABAEAAwIAA3kAAzdoAQABFgQ").setCaption("Photo");
+                break;
+            case "⏰ Horarios":
+                msg.setPhoto("AgADAQADpKgxG3eDcEaEXKbaFSUTkTW3bgYABAEAAwIAA3kAAydWAAIWBA").setCaption("Photo");
+                break;
+        }
         try {
-            // Se envía el mensaje
-            execute(message);
+            execute(msg); // Call method to send the photo with caption
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
 
         //Codigo para saber el File ID de una imagen, se debe poner como comentario cuando no sea necesario
-      /*  if (update.hasMessage() && update.getMessage().hasPhoto()) {
+        /*if (update.hasMessage() && update.getMessage().hasPhoto()) {
             PhotoIdentifier img = new PhotoIdentifier();
-            SendPhoto msg = img.getImageDetails(update.getMessage().getPhoto(),chatId);
+            SendPhoto photomsg = img.getImageDetails(update.getMessage().getPhoto(),chatId);
 
             try {
-                execute(msg); // Call method to send the photo with caption
+                execute(photomsg); // Call method to send the photo with caption
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }

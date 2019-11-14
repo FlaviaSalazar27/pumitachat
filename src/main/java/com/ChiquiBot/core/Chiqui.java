@@ -33,9 +33,26 @@ public class Chiqui extends TelegramLongPollingBot {
         String mensaje = comand.manageImage(messageTextReceived);
 
         SendDocument message = new SendDocument().setChatId(chatId).setDocument(mensaje);
+        if (messageTextReceived.equals("/menu")){
+
+            CommandManager commandManager = new CommandManager();
+            SendMessage keyboard = commandManager.CreateKeyboard("/menu", chatId);
+            try {
+                // Se envía el mensaje
+                execute(keyboard);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            // Se envía el mensaje
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
 
         //Codigo para saber el File ID de una imagen, se debe poner como comentario cuando no sea necesario
-        if (update.hasMessage() && update.getMessage().hasPhoto()) {
+      /*  if (update.hasMessage() && update.getMessage().hasPhoto()) {
             PhotoIdentifier img = new PhotoIdentifier();
             SendPhoto msg = img.getImageDetails(update.getMessage().getPhoto(),chatId);
 
@@ -44,15 +61,7 @@ public class Chiqui extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
-        }
-
-
-        try {
-            // Se envía el mensaje
-            execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        }*/
     }
 
 

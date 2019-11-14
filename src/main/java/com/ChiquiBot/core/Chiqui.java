@@ -8,9 +8,13 @@ import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+<<<<<<< HEAD
 import java.util.logging.Logger;
 
 public class Chiqui extends TelegramLongPollingBot {
+=======
+public class Chiqui extends TelegramLongPollingBot implements Chiqui22 {
+>>>>>>> 50a25c249ef48ad6f14b23eacf53abf10c2973bc
 
     @Override
     public void onUpdateReceived(final Update update) {
@@ -34,6 +38,11 @@ public class Chiqui extends TelegramLongPollingBot {
         }
     }
 
+
+    @Override
+    public void onUpdateReceived(org.telegram.telegrambots.api.objects.Update update) {
+
+    }
 
     @Override
     public String getBotUsername() {

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,36 +21,34 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ele
  */
 @Entity
-@Table(name = "Tarifario")
+@Table(name = "tarifa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tarifario.findAll", query = "SELECT t FROM Tarifario t"),
-    @NamedQuery(name = "Tarifario.findByIdTarifa", query = "SELECT t FROM Tarifario t WHERE t.idTarifa = :idTarifa"),
-    @NamedQuery(name = "Tarifario.findByTarifa", query = "SELECT t FROM Tarifario t WHERE t.tarifa = :tarifa")})
-public class Tarifario implements Serializable {
+    @NamedQuery(name = "Tarifa.findAll", query = "SELECT t FROM Tarifa t"),
+    @NamedQuery(name = "Tarifa.findByIdTarifa", query = "SELECT t FROM Tarifa t WHERE t.idTarifa = :idTarifa"),
+    @NamedQuery(name = "Tarifa.findByTarifa", query = "SELECT t FROM Tarifa t WHERE t.tarifa = :tarifa"),
+    @NamedQuery(name = "Tarifa.findByPrecioDiurno", query = "SELECT t FROM Tarifa t WHERE t.precioDiurno = :precioDiurno"),
+    @NamedQuery(name = "Tarifa.findByPrecioNocturno", query = "SELECT t FROM Tarifa t WHERE t.precioNocturno = :precioNocturno")})
+public class Tarifa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id_tarifa")
     private Integer idTarifa;
-    @Basic(optional = false)
     @Column(name = "tarifa")
     private String tarifa;
-    @JoinColumn(name = "Pdf_id_pdf", referencedColumnName = "id_pdf")
-    @ManyToOne(optional = false)
-    private Pdf pdfidpdf;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "precio_diurno")
+    private BigDecimal precioDiurno;
+    @Column(name = "precio_nocturno")
+    private BigDecimal precioNocturno;
 
-    public Tarifario() {
+    public Tarifa() {
     }
 
-    public Tarifario(Integer idTarifa) {
+    public Tarifa(Integer idTarifa) {
         this.idTarifa = idTarifa;
-    }
-
-    public Tarifario(Integer idTarifa, String tarifa) {
-        this.idTarifa = idTarifa;
-        this.tarifa = tarifa;
     }
 
     public Integer getIdTarifa() {
@@ -70,12 +67,20 @@ public class Tarifario implements Serializable {
         this.tarifa = tarifa;
     }
 
-    public Pdf getPdfidpdf() {
-        return pdfidpdf;
+    public BigDecimal getPrecioDiurno() {
+        return precioDiurno;
     }
 
-    public void setPdfidpdf(Pdf pdfidpdf) {
-        this.pdfidpdf = pdfidpdf;
+    public void setPrecioDiurno(BigDecimal precioDiurno) {
+        this.precioDiurno = precioDiurno;
+    }
+
+    public BigDecimal getPrecioNocturno() {
+        return precioNocturno;
+    }
+
+    public void setPrecioNocturno(BigDecimal precioNocturno) {
+        this.precioNocturno = precioNocturno;
     }
 
     @Override
@@ -88,10 +93,10 @@ public class Tarifario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tarifario)) {
+        if (!(object instanceof Tarifa)) {
             return false;
         }
-        Tarifario other = (Tarifario) object;
+        Tarifa other = (Tarifa) object;
         if ((this.idTarifa == null && other.idTarifa != null) || (this.idTarifa != null && !this.idTarifa.equals(other.idTarifa))) {
             return false;
         }
@@ -100,7 +105,7 @@ public class Tarifario implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Tarifario[ idTarifa=" + idTarifa + " ]";
+        return "entity.Tarifa[ idTarifa=" + idTarifa + " ]";
     }
     
 }

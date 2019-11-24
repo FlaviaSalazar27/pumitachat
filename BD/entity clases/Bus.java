@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,13 +24,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ele
  */
 @Entity
-@Table(name = "Bus")
+@Table(name = "bus")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bus.findAll", query = "SELECT b FROM Bus b"),
     @NamedQuery(name = "Bus.findByIdBus", query = "SELECT b FROM Bus b WHERE b.idBus = :idBus"),
     @NamedQuery(name = "Bus.findByPlaca", query = "SELECT b FROM Bus b WHERE b.placa = :placa"),
-    @NamedQuery(name = "Bus.findByNombreConductor", query = "SELECT b FROM Bus b WHERE b.nombreConductor = :nombreConductor")})
+    @NamedQuery(name = "Bus.findByConductor", query = "SELECT b FROM Bus b WHERE b.conductor = :conductor"),
+    @NamedQuery(name = "Bus.findByAnfitrion", query = "SELECT b FROM Bus b WHERE b.anfitrion = :anfitrion")})
 public class Bus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,29 +39,20 @@ public class Bus implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_bus")
     private Integer idBus;
-    @Basic(optional = false)
     @Column(name = "placa")
     private String placa;
-    @Basic(optional = false)
-    @Column(name = "nombre_conductor")
-    private String nombreConductor;
-    @JoinColumn(name = "Horario_id_horario", referencedColumnName = "id_horario")
-    @ManyToOne(optional = false)
-    private Horario horarioidhorario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "busidbus")
-    private Collection<BusAnfitrion> busAnfitrionCollection;
+    @Column(name = "conductor")
+    private String conductor;
+    @Column(name = "anfitrion")
+    private String anfitrion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bus")
+    private Collection<BusParada> busParadaCollection;
 
     public Bus() {
     }
 
     public Bus(Integer idBus) {
         this.idBus = idBus;
-    }
-
-    public Bus(Integer idBus, String placa, String nombreConductor) {
-        this.idBus = idBus;
-        this.placa = placa;
-        this.nombreConductor = nombreConductor;
     }
 
     public Integer getIdBus() {
@@ -81,29 +71,29 @@ public class Bus implements Serializable {
         this.placa = placa;
     }
 
-    public String getNombreConductor() {
-        return nombreConductor;
+    public String getConductor() {
+        return conductor;
     }
 
-    public void setNombreConductor(String nombreConductor) {
-        this.nombreConductor = nombreConductor;
+    public void setConductor(String conductor) {
+        this.conductor = conductor;
     }
 
-    public Horario getHorarioidhorario() {
-        return horarioidhorario;
+    public String getAnfitrion() {
+        return anfitrion;
     }
 
-    public void setHorarioidhorario(Horario horarioidhorario) {
-        this.horarioidhorario = horarioidhorario;
+    public void setAnfitrion(String anfitrion) {
+        this.anfitrion = anfitrion;
     }
 
     @XmlTransient
-    public Collection<BusAnfitrion> getBusAnfitrionCollection() {
-        return busAnfitrionCollection;
+    public Collection<BusParada> getBusParadaCollection() {
+        return busParadaCollection;
     }
 
-    public void setBusAnfitrionCollection(Collection<BusAnfitrion> busAnfitrionCollection) {
-        this.busAnfitrionCollection = busAnfitrionCollection;
+    public void setBusParadaCollection(Collection<BusParada> busParadaCollection) {
+        this.busParadaCollection = busParadaCollection;
     }
 
     @Override
@@ -128,7 +118,7 @@ public class Bus implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Bus[ idBus=" + idBus + " ]";
+        return "entity.Bus[ idBus=" + idBus + " ]";
     }
     
 }
